@@ -114,8 +114,17 @@ function clickHandler(event) {
         getVotesPerImage();
         getVotesChart();
         getShownTimes();
-        console.log('showntimes', shownTimes);
-        console.log('votes per imgage', votesPerImg);
+        // console.log('showntimes', shownTimes);
+        // console.log('votes per imgage', votesPerImg);
+
+        //adding objects to local storage and retrieving back from JSON to objects
+        var allImages;
+        var imgArrayJSON = JSON.stringify(imgArray);
+        console.log('convert', imgArrayJSON);
+        localStorage.setItem('imgArray', imgArrayJSON);
+        console.log('localstorage', localStorage);
+        allImages = JSON.parse(localStorage.getItem('imgArray'));
+        console.log('allimagesss', allImages);
     }
     threeImages = [];
     threeImages = getThreeUnrepeatedImages();
