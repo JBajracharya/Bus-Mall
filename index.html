@@ -11,8 +11,8 @@
         <main>
             <h2>Result</h2>
             <nav>
-                <ul>
-                    <li>Image name and number of times clicked</li>
+                <ul id="item_list">
+                    <!-- <li>Image name and number of times clicked</li> -->
                 </ul>
             </nav>
             <section id="all_items">
@@ -29,9 +29,12 @@
                     <p id="right_name"></p>
                 </div>
             </section>
+            <section id="chart">
+                <canvas id="clicks_total" width="400" height="200"></canvas>
+            </section>
         </main>
 
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
         <script src="script/app.js"></script>
     </body>
 </html>
