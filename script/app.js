@@ -1,3 +1,5 @@
+'use strict';
+
 function Product(name, imgUrl) {
     this.name = name;
     this.imgUrl = imgUrl;
@@ -6,7 +8,7 @@ function Product(name, imgUrl) {
 }
 
 Product.voteCtr = 0;
-Product.voteMax = 5;
+Product.voteMax = 25;
 
 Product.prototype.increaseClickCtr = function () {
     this.clickCtr++;
@@ -36,7 +38,6 @@ imgArray.push(new Product('USB', 'img/usb.gif'));
 imgArray.push(new Product('Water Can', 'img/water-can.jpg'));
 imgArray.push(new Product('Wine Glass', 'img/wine-glass.jpg'));
 
-console.log('imgArray', imgArray);
 
 var leftImage = document.getElementById('left_item_img');
 var leftName = document.getElementById('left_name');
@@ -52,102 +53,80 @@ imgElemArr.push(leftImage, middleImage, rightImage);
 var imgNameArr = [];
 imgNameArr.push(leftName, middleName, rightName);
 
-threeImages = [];
+var threeImages = [];
+
+
+//Get the list of names, votes and total times the image is shown.
+function getNameAndVoteList() {
+    var text;
+    for (var i = 0; i < imgArray.length; i++) {
+        text = `${imgArray[i].name} : ${imgArray[i].clickCtr} votes      Times Shown : ${imgArray[i].shownCtr}`;
+        var element = document.createElement('li');
+        item_list.appendChild(element);
+        element.textContent = text;
+    }
+
+}
+
+
 //add event handler
-
-Product.flag = 0;
-
-//Generate random number
 function clickHandler(event) {
     var id = event.target.id;
     console.log('id', id);
-    //increase the counter first clikced item
-    //change the images
-    // var threeImages = getThreeUnrepeatedImages();
-    
-    // if (id === 'left_item_img') {
-    //     imgArray[0].clickCtr++;
-    //     flag++;
-    // } else if (id === 'middle_item_img') {
-    //     imgArray[1].clickCtr++;
-    //     flag++;
-    // } else if (id === 'right_item_img') {
-    //     imgArray[2].clickCtr++;
-    //     flag++;
-    // } else {
 
-        var thing = [];
-        if (id === 'left_item_img') {
-            threeImages[0].clickCtr++;
-            console.log(threeImages[0].clickCtr);
-            for (i = 0; i < imgArray.length; i++) {
-                thing.push(imgArray[i].clickCtr)
-    
-            }
-            console.log(thing)
+    var thing = [];
+    if (id === 'left_item_img') {
+        threeImages[0].clickCtr++;
+        // console.log(threeImages[0].clickCtr);
+        for (var i = 0; i < imgArray.length; i++) {
+            thing.push(imgArray[i].clickCtr)
+
         }
-        else if (id === 'middle_item_img') {
-            threeImages[1].clickCtr++;
-            console.log(threeImages[1].clickCtr);
-            for (i = 0; i < imgArray.length; i++) {
-                thing.push(imgArray[i].clickCtr)
-    
-            }
-            console.log(thing)
-        }
-        else if (id === 'right_item_img') {
-            threeImages[2].clickCtr++;
-            console.log(threeImages[2].clickCtr);
-            for (i = 0; i < imgArray.length; i++) {
-                thing.push(imgArray[i].clickCtr)
-    
-            }
-            console.log(thing)
-        }
+        console.log(thing)
     }
+    else if (id === 'middle_item_img') {
+        threeImages[1].clickCtr++;
+        // console.log(threeImages[1].clickCtr);
+        for (var i = 0; i < imgArray.length; i++) {
+            thing.push(imgArray[i].clickCtr)
 
-    
-    
+        }
+        console.log(thing)
+    }
+    else if (id === 'right_item_img') {
+        threeImages[2].clickCtr++;
+        // console.log(threeImages[2].clickCtr);
+        for (var i = 0; i < imgArray.length; i++) {
+            thing.push(imgArray[i].clickCtr)
 
+        }
+        console.log(thing)
 
+        
+    }
+    // console.log('bag ctr', imgArray[0].clickCtr);
+    Product.voteMax--;
+    if (Product.voteMax === 0) {
+        leftImage.removeEventListener('click', clickHandler);
+        middleImage.removeEventListener('click', clickHandler);
+        rightImage.removeEventListener('click', clickHandler);
+        getNameAndVoteList();
+        getVotesPerImage();
+        getVotesChart();
+        getShownTimes();
+        console.log('showntimes', shownTimes);
+        console.log('votes per imgage', votesPerImg);
+    }
+    threeImages = [];
+    threeImages = getThreeUnrepeatedImages();
+}
 
-    // console.log('threeimges', threeImages);
-
-    // if (id === 'left_item_img' || id === 'middle_item_img' || id === 'right_item_img') {
-    //     leftImage.setAttribute('src', threeImages[0].imgUrl);
-    //     leftName.textContent = threeImages[0].name;
-
-    //     middleImage.setAttribute('src', threeImages[1].imgUrl);
-    //     middleName.textContent = threeImages[1].name;
-
-    //     rightImage.setAttribute('src', threeImages[2].imgUrl);
-    //     rightName.textContent = threeImages[2].name;
-
-    // }
-
-    // var maxNum = 20
-    // for (var i = 0; i < 3; i++) {
-    //     var randNumWithinRange1 = Math.floor(Math.random() * maxNum);
-    //     var randNumWithinRange2 = Math.floor(Math.random() * maxNum);
-    //     var randNumWithinRange3 = Math.floor(Math.random() * maxNum);
-
-    //     if (id === 'left_item_img' || id === 'middle_item_img' || id === 'right_item_img') {
-    //         leftImage.setAttribute('src', imgArray[randNumWithinRange1].imgUrl);
-    //         middleImage.setAttribute('src', imgArray[randNumWithinRange2].imgUrl);
-    //         rightImage.setAttribute('src', imgArray[randNumWithinRange3].imgUrl);
-
-    //     }
-    // }
-// }
 
 function getThreeUnrepeatedImages() {
     var trio = [];
     var maxNum = 20;
     while (trio.length < 3) {
-        // while (trio.includes(newItem))
-        
-        console.log('this is a new item', newItem)
-        for (var i = 0; i < 3; i++){
+        for (var i = 0; i < 3; i++) {
             var newIndex = Math.floor(Math.random() * maxNum);
             var newItem = imgArray[newIndex];
             // debugger;
@@ -155,18 +134,86 @@ function getThreeUnrepeatedImages() {
                 trio.push(newItem);
                 threeImages.push(newItem);
                 imgElemArr[i].src = trio[i].imgUrl;
-                imgNameArr[i].src = trio[i].name;
-                console.log('trio', trio);
-        }
+                imgNameArr[i].textContent = trio[i].name;
+                threeImages[i].shownCtr++;
+                // console.log(threeImages[i].name, threeImages[i].shownCtr)
+                // console.log('trio', trio);
+            }
         }
     }
-    return trio;
+    // return trio;
+    return threeImages;
 }
 getThreeUnrepeatedImages();
-// getThreeUnrepeatedImages();
-// clickHandler('click');
 
-// console.log(getThreeUnrepeatedImages());
 leftImage.addEventListener('click', clickHandler);
 middleImage.addEventListener('click', clickHandler);
 rightImage.addEventListener('click', clickHandler);
+
+
+////////////////////////////////////////////
+//chart section
+
+var imgLabel = [];
+var votesPerImg = [];
+var shownTimes = [];
+
+
+function getNamesForLabel () {
+    for (var i = 0; i < imgArray.length; i++){
+        imgLabel.push(imgArray[i].name);
+    }
+    return imgLabel;
+}
+getNamesForLabel();
+
+function getVotesPerImage () {
+    for (var i = 0; i < imgArray.length; i++) {
+        votesPerImg.push(imgArray[i].clickCtr);
+    }
+    return votesPerImg;
+}
+
+function getShownTimes () {
+    for (var i = 0; i < imgArray.length; i++) {
+        shownTimes.push(imgArray[i].shownCtr);
+    }
+}
+
+
+
+
+
+// console.log('imgLabel',imgLabel);
+function getVotesChart() {
+    var ctx = document.getElementById('clicks_total').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: imgLabel,
+            datasets: [{
+                label: '# of Votes',
+                data: votesPerImg,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: '# of time displayed',
+                data: shownTimes,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
