@@ -75,26 +75,23 @@ function getNameAndVoteList() {
 //add event handler
 function clickHandler(event) {
     var id = event.target.id;
-    console.log('id', id);
 
     var thing = [];
     if (id === 'left_item_img') {
         threeImages[0].clickCtr++;
-        // console.log(threeImages[0].clickCtr);
         for (var i = 0; i < imgArray.length; i++) {
             thing.push(imgArray[i].clickCtr)
 
         }
-        console.log(thing)
+        // console.log(thing)
     }
     else if (id === 'middle_item_img') {
         threeImages[1].clickCtr++;
-        // console.log(threeImages[1].clickCtr);
         for (var i = 0; i < imgArray.length; i++) {
             thing.push(imgArray[i].clickCtr)
 
         }
-        console.log(thing)
+        // console.log(thing)
     }
     else if (id === 'right_item_img') {
         threeImages[2].clickCtr++;
@@ -103,7 +100,7 @@ function clickHandler(event) {
             thing.push(imgArray[i].clickCtr)
 
         }
-        console.log(thing)
+        // console.log(thing)
 
         
     }
@@ -117,8 +114,6 @@ function clickHandler(event) {
         getVotesPerImage();
         getShownTimes();
         getVotesChart();
-        // console.log('showntimes', shownTimes);
-        // console.log('votes per imgage', votesPerImg);
 
         //adding objects to local storage and retrieving back from JSON to objects
         var allImages;
@@ -141,7 +136,7 @@ function getThreeUnrepeatedImages() {
         for (var i = 0; i < 3; i++) {
             var newIndex = Math.floor(Math.random() * maxNum);
             var newItem = imgArray[newIndex];
-            // debugger;
+
             //Get set of 3 images and also not repeat the same image for two 
             //consecutive display
             if (!threeImages.includes(newItem) && !sixDisplayedImages.includes(newItem)) {
@@ -150,8 +145,7 @@ function getThreeUnrepeatedImages() {
                 imgElemArr[i].src = threeImages[i].imgUrl;
                 imgNameArr[i].textContent = threeImages[i].name;
                 threeImages[i].shownCtr++;
-                // console.log(threeImages[i].name, threeImages[i].shownCtr)
-                // console.log('trio', trio);
+
             } else {
                 i = i - 1;
             }
@@ -160,12 +154,9 @@ function getThreeUnrepeatedImages() {
             }
         }
     }
-    // return trio;
     return threeImages;
 }
 getThreeUnrepeatedImages();
-console.log('threeImages', threeImages);
-console.log('imgElemArr', imgElemArr);
 
 leftImage.addEventListener('click', clickHandler);
 middleImage.addEventListener('click', clickHandler);
