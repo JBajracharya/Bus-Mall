@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bus Mall</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <header>
-            <h1>Title</h1>
-        </header>
-        <main>
-            <h2>Result</h2>
-            <nav>
-                <ul id="item_list">
-                    <!-- <li>Image name and number of times clicked</li> -->
-                </ul>
-            </nav>
-            <section id="all_items">
-                <div id="left_item">
-                    <img id="left_item_img" src="" alt="bag">
-                    <p id="left_name"></p>
-                </div>
-                <div id="middle_item">
-                    <img id="middle_item_img" src="" alt="banana">
-                    <p id="middle_name"></p>
-                </div>
-                <div id="right-item">
-                    <img id="right_item_img" src="" alt="bathroom">
-                    <p id="right_name"></p>
-                </div>
-            </section>
-            <section id="chart">
-                <canvas id="clicks_total" width="400" height="200"></canvas>
-            </section>
-        </main>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-        <script src="script/app.js"></script>
-    </body>
+<head>
+    <title>Bus Mall</title>
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>The Bus Mall</h1>
+    </header>
+    <main>
+        <nav>
+            <h2>Result</h2>
+            <ul id="item_list">
+                <!-- <li>Image name and number of times clicked</li> -->
+            </ul>
+        </nav>
+        <section id="all_items">
+            <div id="left_item">
+                <img id="left_item_img" src="" alt="bag">
+                <p class="img_name" id="left_name"></p>
+            </div>
+            <div id="middle_item">
+                <img id="middle_item_img" src="" alt="banana">
+                <p class="img_name" id="middle_name"></p>
+            </div>
+            <div id="right-item">
+                <img id="right_item_img" src="" alt="bathroom">
+                <p class="img_name" id="right_name"></p>
+            </div>
+        </section>
+        <section id="chart">
+            <canvas id="clicks_total" width="400" height="200"></canvas>
+        </section>
+    </main>
+    <footer>
+        <div id="foot"></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="script/app.js"></script>
+</body>
+
 </html>
