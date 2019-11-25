@@ -7,15 +7,18 @@ function Product(name, imgUrl) {
     this.shownCtr = 0;
 }
 
+//Global variable available just for Product object
 Product.voteCtr = 0;
 Product.voteMax = 25;
 
+//function accessible for product object
 Product.prototype.increaseClickCtr = function () {
     this.clickCtr++;
 }
 
 
 var imgArray = [];
+var threeImages = [];
 
 imgArray.push(new Product('Bag', 'img/bag.jpg'));
 imgArray.push(new Product('Banana', 'img/banana.jpg'));
@@ -53,14 +56,14 @@ imgElemArr.push(leftImage, middleImage, rightImage);
 var imgNameArr = [];
 imgNameArr.push(leftName, middleName, rightName);
 
-var threeImages = [];
+
 
 
 //Get the list of names, votes and total times the image is shown.
 function getNameAndVoteList() {
     var text;
     for (var i = 0; i < imgArray.length; i++) {
-        text = `${imgArray[i].name} : ${imgArray[i].clickCtr} votes      Times Shown : ${imgArray[i].shownCtr}`;
+        text = `${imgArray[i].name} : ${imgArray[i].clickCtr} votes Times Shown : ${imgArray[i].shownCtr}`;
         var element = document.createElement('li');
         item_list.appendChild(element);
         element.textContent = text;
@@ -112,8 +115,8 @@ function clickHandler(event) {
         rightImage.removeEventListener('click', clickHandler);
         getNameAndVoteList();
         getVotesPerImage();
-        getVotesChart();
         getShownTimes();
+        getVotesChart();
         // console.log('showntimes', shownTimes);
         // console.log('votes per imgage', votesPerImg);
 
@@ -130,23 +133,30 @@ function clickHandler(event) {
     threeImages = getThreeUnrepeatedImages();
 }
 
+var sixDisplayedImages = [];
 
 function getThreeUnrepeatedImages() {
-    var trio = [];
     var maxNum = 20;
-    while (trio.length < 3) {
+    while (threeImages.length < 3) {
         for (var i = 0; i < 3; i++) {
             var newIndex = Math.floor(Math.random() * maxNum);
             var newItem = imgArray[newIndex];
             // debugger;
-            if (!trio.includes(newItem)) {
-                trio.push(newItem);
+            //Get set of 3 images and also not repeat the same image for two 
+            //consecutive display
+            if (!threeImages.includes(newItem) && !sixDisplayedImages.includes(newItem)) {
+                sixDisplayedImages.push(newItem);
                 threeImages.push(newItem);
-                imgElemArr[i].src = trio[i].imgUrl;
-                imgNameArr[i].textContent = trio[i].name;
+                imgElemArr[i].src = threeImages[i].imgUrl;
+                imgNameArr[i].textContent = threeImages[i].name;
                 threeImages[i].shownCtr++;
                 // console.log(threeImages[i].name, threeImages[i].shownCtr)
                 // console.log('trio', trio);
+            } else {
+                i = i - 1;
+            }
+            if (sixDisplayedImages.length === 5) {
+                sixDisplayedImages = [];
             }
         }
     }
@@ -154,6 +164,8 @@ function getThreeUnrepeatedImages() {
     return threeImages;
 }
 getThreeUnrepeatedImages();
+console.log('threeImages', threeImages);
+console.log('imgElemArr', imgElemArr);
 
 leftImage.addEventListener('click', clickHandler);
 middleImage.addEventListener('click', clickHandler);
@@ -207,14 +219,16 @@ function getVotesChart() {
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }, {
-                label: '# of time displayed',
+                label: '# of times displayed',
                 data: shownTimes,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 1
-            }]
+            }],
         },
         options: {
+            // width: '300px',
+            // responsiveness: false,
             scales: {
                 yAxes: [{
                     ticks: {
